@@ -6,6 +6,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import { useUIStore } from '../../hooks/useUIStore';
+
 // Fecha en español
 import es from 'date-fns/locale/es';
 registerLocale('es', es);
@@ -24,7 +26,9 @@ const customStyles = {
 Modal.setAppElement('#root'); // index.html
 
 export const CalendarModal = () => {
-  const [isOpen, setIsOpen] = useState(true);
+
+  const { isDateModalOpen, closeDateModal } = useUIStore();
+  // const [isOpen, setIsOpen] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const [formValues, setFormValues] = useState({
@@ -55,8 +59,9 @@ export const CalendarModal = () => {
   }
 
   const onCloseModal = () => {
-    console.log('Cerrando modal');
-    setIsOpen(false); // cerrar
+    // console.log('Cerrando modal');
+    // setIsOpen(false); // cerrar
+    closeDateModal(); // cerrar el modal desde redux
   }
 
   const onSubmit = ( event ) => {
@@ -78,7 +83,7 @@ export const CalendarModal = () => {
 
   return (
     <Modal
-      isOpen={ isOpen }
+      isOpen={ isDateModalOpen }
       onRequestClose={ onCloseModal }
       style={ customStyles }
       className="modal"
@@ -146,7 +151,7 @@ export const CalendarModal = () => {
 
         <button type="submit" className="btn btn-outline-primary btn-block">
           <i className="far fa-save"></i>
-          <span> Guardar</span>
+          <span> Guardar </span>
         </button>
       </form>
 
