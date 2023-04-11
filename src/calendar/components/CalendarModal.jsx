@@ -29,7 +29,7 @@ Modal.setAppElement('#root'); // index.html
 export const CalendarModal = () => {
 
   const { isDateModalOpen, closeDateModal } = useUIStore();
-  const { activeEvent } = useCalendarStore();
+  const { activeEvent, startSavingEvent } = useCalendarStore();
 
   // const [isOpen, setIsOpen] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -74,7 +74,7 @@ export const CalendarModal = () => {
     closeDateModal(); // cerrar el modal desde redux
   }
 
-  const onSubmit = ( event ) => {
+  const onSubmit = async( event ) => {
     event.preventDefault();
     setFormSubmitted(true); // se intento hacer el posteo
 
@@ -86,9 +86,11 @@ export const CalendarModal = () => {
     }
 
     if ( formValues.title.length === 0 ) return;
+    // console.log({ formValues });
 
-    console.log({ formValues });
-
+    await startSavingEvent( formValues );
+    closeDateModal();
+    setFormSubmitted(false);
   }
 
   return (
