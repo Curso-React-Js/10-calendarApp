@@ -14,12 +14,12 @@ export const authSlice = createSlice({
       state.errorMessage = undefined;
     },
     onLogin: ( state, { payload } ) => {
-      state.status = 'autheticated';
+      state.status = 'authenticated';
       state.user = payload;
       state.errorMessage = undefined;
     },
     onLogout: ( state, { payload } ) => {
-      state.status = 'not-autheticated';
+      state.status = 'not-authenticated';
       state.user = {};
       state.errorMessage = payload;
     },
