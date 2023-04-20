@@ -20,8 +20,6 @@ export const AppRouter = () => {
     )
   }
 
-  console.log(status);
-
   return (
     <Routes>
       {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -9,7 +9,7 @@ import { useCalendarStore, useUIStore } from '../../hooks';
 export const CalendarPage = () => {
 
   const { openDateModal } = useUIStore();
-  const { events, setActiveEvent } = useCalendarStore();
+  const { events, setActiveEvent, startLoadingEvents } = useCalendarStore();
 
   const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
 
@@ -42,6 +42,10 @@ export const CalendarPage = () => {
     // Guardar donde se muestra el calendario week, month, dia, etc
     localStorage.setItem('lastView', event);
   }
+
+  useEffect(() => {
+    startLoadingEvents();
+  }, []);  
 
   return (
     <>
