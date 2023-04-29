@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import { getEnvVariables } from '../../helpers';
 import { useUIStore } from '../../hooks/useUIStore';
 
 // Fecha en español
@@ -24,7 +25,9 @@ const customStyles = {
   },
 }
 
-Modal.setAppElement('#root'); // index.html
+if ( getEnvVariables().VITE_MODE !== 'test' ) {
+  Modal.setAppElement('#root'); // index.html
+}
 
 export const CalendarModal = () => {
 
